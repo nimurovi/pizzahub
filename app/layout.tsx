@@ -4,6 +4,7 @@ import "./globals.css";
  
 import Footer from "@/components/shared/Footer";
 import AuthNavbar from "@/components/shared/AuthNavbar";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,6 +30,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col">
         <AuthNavbar />
         {children}
+        <Toaster
+  position="top-right"
+  richColors
+  closeButton
+  duration={4000}
+/>
         <Footer />
         </body>
     </html>

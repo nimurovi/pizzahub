@@ -4,14 +4,24 @@ import Link from "next/link";
 import { useRef, useState, type FormEvent } from "react";
 import { authClient } from "../../../lib/auth-client";
 import GoogleAuthButton from "@/components/auth/GoogleAuthButton";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function SignUpPage() {
+    const router = useRouter();
     const submitting = useRef(false);
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState(false);
+    function showError(message: string) {
+  setError(message);
+
+  toast.error(message, {
+    id: "sign-up-error",
+  });
+}
 
     async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -39,19 +49,19 @@ export default function SignUpPage() {
             !/[a-z]/.test(password) ||
             !/[A-Z]/.test(password)
         ) {
-            setError(
+            showError(
                 "Use 6–128 characters, including an uppercase and a lowercase letter."
             );
             return;
         }
 
         if (password !== confirmPassword) {
-            setError("Passwords do not match.");
+            showError("Passwords do not match.");
             return;
         }
 
         if (role !== "customer" && role !== "vendor") {
-            setError("Choose Customer or Vendor.");
+            showError("Choose Customer or Vendor.");
             return;
         }
 
@@ -67,13 +77,15 @@ export default function SignUpPage() {
             });
 
             if (result.error) {
-                setError(result.error.message || "Unable to create your account.");
+                showError(result.error.message || "Unable to create your account.");
                 return;
             }
 
+
             setSuccess(true);
+            router.replace("/auth/complete");
         } catch {
-            setError("Unable to reach the server. Please try again.");
+            showError("Unable to reach the server. Please try again.");
         } finally {
             submitting.current = false;
             setIsSubmitting(false);

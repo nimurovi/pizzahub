@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { authClient } from "../../lib/auth-client";
 import Navbar from "./Navbar";
+import { toast } from "sonner";
 
 type Role = "customer" | "vendor" | "admin";
 
@@ -47,18 +48,37 @@ export default function AuthNavbar() {
       : null;
 
   async function handleLogout() {
+  const toastId = toast.loading("Logging out...");
+
+  try {
     const result = await authClient.signOut();
 
     if (result.error) {
-      // Your existing Navbar catches and displays logout errors.
       throw new Error(
         result.error.message || "Unable to log out. Please try again."
       );
     }
 
+    toast.success("Logged out successfully.", {
+      id: toastId,
+    });
+
     router.replace("/");
     router.refresh();
+  } catch (error) {
+    const message =
+      error instanceof Error
+        ? error.message
+        : "Unable to log out. Please try again.";
+
+    toast.error(message, {
+      id: toastId,
+    });
+
+    // Preserve the existing inline error handling in Navbar.
+    throw new Error(message);
   }
+}
 
   return (
     <>
