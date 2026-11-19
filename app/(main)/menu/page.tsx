@@ -24,7 +24,7 @@ export default function MenuPage() {
                 <Suspense fallback={<LoadingSpinner message="Loading menu..." />}>
                     <BrowseMenu />
                 </Suspense>
-                <BrowseMenu />
+                 
 
             </div>
         </main >
