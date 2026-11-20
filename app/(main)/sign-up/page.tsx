@@ -6,22 +6,26 @@ import { authClient } from "../../../lib/auth-client";
 import GoogleAuthButton from "@/components/auth/GoogleAuthButton";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import ProfileImagePicker from "../../../components/auth/ProfileImagePicker";
+import { uploadProfileImage } from "../../../lib/profile-image";
 
 export default function SignUpPage() {
     const router = useRouter();
     const submitting = useRef(false);
+    const [profileImage, setProfileImage] = useState<File | null>(null);
+    const [isUploadingImage, setIsUploadingImage] = useState(false);
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState(false);
     function showError(message: string) {
-  setError(message);
+        setError(message);
 
-  toast.error(message, {
-    id: "sign-up-error",
-  });
-}
+        toast.error(message, {
+            id: "sign-up-error",
+        });
+    }
 
     async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -82,8 +86,40 @@ export default function SignUpPage() {
             }
 
 
+            // The account has already been created successfully.
+            // Upload the optional photo using the new authenticated session.
+            if (profileImage) {
+                setIsUploadingImage(true);
+
+                const imageToast = toast.loading("Uploading your profile image...");
+
+                try {
+                    await uploadProfileImage(profileImage);
+
+                    toast.success("Profile image uploaded successfully.", {
+                        id: imageToast,
+                    });
+                } catch (error) {
+                    const message =
+                        error instanceof Error
+                            ? error.message
+                            : "Your profile image could not be uploaded.";
+
+                    toast.warning(
+                        `Your account was created, but the photo upload was not confirmed. ${message} You can check or update it in Profile Settings.`,
+                        {
+                            id: imageToast,
+                            duration: 8000,
+                        }
+                    );
+                } finally {
+                    setIsUploadingImage(false);
+                }
+            }
+
             setSuccess(true);
-            router.replace("/auth/complete");
+            router.replace("/auth/complete?flow=signup");
+
         } catch {
             showError("Unable to reach the server. Please try again.");
         } finally {
@@ -180,6 +216,11 @@ export default function SignUpPage() {
                                 className={inputClass}
                             />
                         </div>
+                        <ProfileImagePicker
+                            value={profileImage}
+                            onChange={setProfileImage}
+                            disabled={isSubmitting}
+                        />
 
                         <div>
                             <label
@@ -273,7 +314,8 @@ export default function SignUpPage() {
                         <button
                             type="submit"
                             disabled={isSubmitting}
-                            className="flex w-full items-center justify-center gap-3 rounded-xl bg-red-700 px-5 py-3 font-semibold text-white transition hover:bg-red-800 disabled:cursor-not-allowed disabled:opacity-70"
+                            aria-busy={isSubmitting}
+                            className="flex w-full items-center justify-center gap-2 rounded-xl bg-red-700 px-5 py-3 font-semibold text-white transition hover:bg-red-800 disabled:cursor-not-allowed disabled:opacity-60"
                         >
                             {isSubmitting && (
                                 <span
@@ -282,10 +324,13 @@ export default function SignUpPage() {
                                 />
                             )}
 
-                            <span aria-live="polite">
-                                {isSubmitting ? "Creating account..." : "Create Account"}
-                            </span>
+                            {isUploadingImage
+                                ? "Uploading photo..."
+                                : isSubmitting
+                                    ? "Creating account..."
+                                    : "Create Account"}
                         </button>
+
                     </fieldset>
                 </form>
 
