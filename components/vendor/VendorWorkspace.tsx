@@ -45,12 +45,12 @@ const navigation: {
   {
     label: "My Menu Items",
     href: "/dashboard/vendor/menu",
-    ready: false,
+    ready: true,
   },
   {
     label: "Customer Orders",
     href: "/dashboard/vendor/orders",
-    ready: false,
+    ready: true,
   },
   {
     label: "Subscription",
