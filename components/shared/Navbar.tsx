@@ -23,11 +23,11 @@ type NavbarProps = {
 const roleLinks: Record<Role, { label: string; href: string }> = {
     customer: {
         label: "My Orders",
-        href: "/dashboard/customer/orders",
+        href: "/dashboard/my-orders",
     },
     vendor: {
-        label: "My Menu",
-        href: "/dashboard/vendor/menu",
+        label: "Vendor Dashboard",
+        href: "/dashboard/vendor",
     },
     admin: {
         label: "Manage Users",
@@ -167,8 +167,8 @@ export default function Navbar({
                                 onClick={closeMenus}
                                 aria-current={isActive(link.href) ? "page" : undefined}
                                 className={`rounded-xl px-4 py-3 text-sm font-semibold transition-colors motion-reduce:transition-none ${focusStyles} ${isActive(link.href)
-                                        ? "bg-orange-100 text-red-800"
-                                        : "text-stone-600 hover:bg-orange-50 hover:text-red-800"
+                                    ? "bg-orange-100 text-red-800"
+                                    : "text-stone-600 hover:bg-orange-50 hover:text-red-800"
                                     }`}
                             >
                                 {link.label}
@@ -246,7 +246,11 @@ export default function Navbar({
                                     </div>
 
                                     <Link
-                                        href={`/dashboard/${user.role}`}
+                                        href={
+                                            user.role === "customer"
+                                                ? "/dashboard/my-orders"
+                                                : `/dashboard/${user.role}`
+                                        }
                                         onClick={closeMenus}
                                         className={`block rounded-lg px-3 py-3 text-sm hover:bg-orange-50 ${focusStyles}`}
                                     >
