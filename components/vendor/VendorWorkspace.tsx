@@ -40,7 +40,7 @@ const navigation: {
   {
     label: "Add Menu Item",
     href: "/dashboard/vendor/menu/new",
-    ready: false,
+    ready: true,
   },
   {
     label: "My Menu Items",
