@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import LoadingSpinner from "../../../../components/shared/LoadingSpinner";
 import { MenuItem } from "@/types";
 import RequireAuth from "@/components/auth/RequirAuth";
+import OrderForm from "@/components/orders/OrderForm";
  
 
 type DetailsState =
@@ -275,7 +276,14 @@ function ItemDetails({ id }: { id: string }) {
                   Available
                 </dd>
               </div>
-            </dl>
+                        </dl>
+
+            <OrderForm
+              key={item._id}
+              itemId={item._id}
+              vendorId={item.vendorId}
+              price={item.price}
+            />
           </section>
         </div>
       </div>
