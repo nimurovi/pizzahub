@@ -52,7 +52,13 @@ export default function AdminDashboard() {
     finally { setLoading(false); }
   }, [tab, search, role, status]);
 
-  useEffect(() => { void load(); }, [load]);
+ useEffect(() => {
+  const timer = window.setTimeout(() => {
+    void load();
+  }, 0);
+
+  return () => window.clearTimeout(timer);
+}, [load]);
 
   async function mutate(key: string, path: string, method: string, body?: object) {
     setBusy(key); setError("");
