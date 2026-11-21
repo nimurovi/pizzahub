@@ -30,8 +30,8 @@ const roleLinks: Record<Role, { label: string; href: string }> = {
         href: "/dashboard/vendor",
     },
     admin: {
-        label: "Manage Users",
-        href: "/dashboard/admin/users",
+        label: "Admin Dashboard",
+        href: "/dashboard/admin",
     },
 };
 
