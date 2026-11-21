@@ -85,3 +85,15 @@ html.dark [class~="shadow-sm"],
 html.dark [class~="shadow-lg"] {
   --tw-shadow-color: rgb(0 0 0 / 0.25);
 }
+/* Dark mode card backgrounds */
+html.dark [class~="bg-[#fffdf9]"],
+html.dark [class~="bg-white"] {
+  background-color: #1f2937 !important;
+  color: #f3f4f6;
+}
+
+/* Category badge text */
+html.dark [class~="text-red-800"],
+html.dark [class~="text-orange-800"] {
+  color: #fdba74 !important;
+}
