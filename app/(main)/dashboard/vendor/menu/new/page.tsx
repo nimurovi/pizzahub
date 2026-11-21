@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useRef, useState, type FormEvent } from "react";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
+import { usePathname } from "next/navigation";
+
 
 const categories = [
   { value: "classic-pizzas", label: "Classic Pizzas" },
@@ -99,7 +101,7 @@ function AddMenuForm() {
     const price = Number(priceText);
 
     if (
-      !/^\d+(?:\.\d{1,2})?$/.test(priceText) ||
+      !/^\d+(?:\.\d{1,2})?$/.test(priceText)||
       !Number.isFinite(price) ||
       price <= 0 ||
       price > 1_000_000
@@ -388,6 +390,7 @@ function AddMenuForm() {
 }
 
 export default function AddMenuItemPage() {
+  const pathname = usePathname();
   const {
     data: session,
     isPending,
@@ -479,8 +482,7 @@ export default function AddMenuItemPage() {
           Add your item details and upload a photo for admin review.
         </p>
 
-        <AddMenuForm key={user.id} />
-      </div>
+        <AddMenuForm key={`${user.id}-${pathname}`} />      </div>
     </main>
   );
 }

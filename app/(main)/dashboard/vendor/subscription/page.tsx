@@ -1,5 +1,4 @@
 import VendorWorkspace from "@/components/vendor/VendorWorkspace";
-
-export default function VendorSubscriptionPage() {
+export default function SubscriptionPage() {
   return <VendorWorkspace view="subscription" />;
 }
