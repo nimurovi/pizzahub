@@ -178,6 +178,48 @@ export default function Navbar({
 
                     {/* Account actions */}
                     <div className="flex items-center gap-3 border-t border-orange-100 pt-4 lg:border-0 lg:pt-0">
+                        <button
+                            type="button"
+                            aria-label="Toggle dark or light mode"
+                            title="Toggle dark or light mode"
+                            onClick={() => {
+                                const root = document.documentElement;
+                                const nextDark = !root.classList.contains("dark");
+                                root.classList.toggle("dark", nextDark);
+                                try {
+                                    localStorage.setItem("pizzahub-theme", nextDark ? "dark" : "light");
+                                } catch {
+                                    // Theme still applies for this page when storage is unavailable.
+                                }
+                            }}
+                            className={`flex size-11 shrink-0 items-center justify-center rounded-xl border border-orange-200 bg-white text-stone-700 transition-colors hover:bg-orange-50 ${focusStyles}`}
+                        >
+                            <svg
+                                className="hidden size-5 dark:block"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                aria-hidden="true"
+                            >
+                                <circle cx="12" cy="12" r="4" />
+                                <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" />
+                            </svg>
+                            <svg
+                                className="size-5 dark:hidden"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                aria-hidden="true"
+                            >
+                                <path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z" />
+                            </svg>
+                        </button>
                         {isPending ? (
                             <span
                                 role="status"

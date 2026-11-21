@@ -52,13 +52,12 @@ export default function AdminDashboard() {
     finally { setLoading(false); }
   }, [tab, search, role, status]);
 
- useEffect(() => {
-  const timer = window.setTimeout(() => {
-    void load();
-  }, 0);
-
-  return () => window.clearTimeout(timer);
-}, [load]);
+  useEffect(() => {
+    // Defer the initial fetch to a task so loading/error state updates do not
+    // run synchronously inside the React effect.
+    const timer = window.setTimeout(() => { void load(); }, 0);
+    return () => window.clearTimeout(timer);
+  }, [load]);
 
   async function mutate(key: string, path: string, method: string, body?: object) {
     setBusy(key); setError("");

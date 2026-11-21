@@ -12,15 +12,76 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html.dark {
+  color-scheme: dark;
+  --background: #111827;
+  --foreground: #f3f4f6;
+}
+
+html:not(.dark) {
+  color-scheme: light;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* PizzaHub theme overrides: activated by the header theme toggle. */
+html.dark body {
+  background: #111827;
+  color: #f3f4f6;
+}
+
+html.dark [class~="bg-white"],
+html.dark [class~="bg-[#fffaf3]"] {
+  background-color: #1f2937 !important;
+}
+
+html.dark [class~="bg-stone-50"],
+html.dark [class~="bg-orange-50"],
+html.dark [class~="bg-orange-100"] {
+  background-color: #273449 !important;
+}
+
+html.dark [class~="text-stone-900"],
+html.dark [class~="text-stone-800"],
+html.dark [class~="text-stone-700"],
+html.dark [class~="text-stone-600"],
+html.dark [class~="text-stone-500"] {
+  color: #e5e7eb !important;
+}
+
+html.dark [class~="border-orange-100"],
+html.dark [class~="border-orange-200"],
+html.dark [class~="border-stone-200"],
+html.dark [class~="border-stone-300"] {
+  border-color: #475569 !important;
+}
+
+html.dark input,
+html.dark select,
+html.dark textarea {
+  background-color: #1f2937;
+  color: #f3f4f6;
+  border-color: #475569;
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: #9ca3af;
+}
+
+html.dark table thead {
+  background-color: #273449;
+}
+
+html.dark table tbody tr {
+  border-color: #475569;
+}
+
+html.dark [class~="shadow-sm"],
+html.dark [class~="shadow-lg"] {
+  --tw-shadow-color: rgb(0 0 0 / 0.25);
 }
