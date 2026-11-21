@@ -5,6 +5,7 @@ import { useRef, useState, type FormEvent } from "react";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
 import { usePathname } from "next/navigation";
+import { apiFetch } from "@/lib/api-fetch";
 
 
 const categories = [
@@ -138,7 +139,7 @@ function AddMenuForm() {
     const toastId = toast.loading("Uploading and submitting your item...");
 
     try {
-      const response = await fetch(
+      const response = await apiFetch(
         `${apiUrl.replace(/\/$/, "")}/api/vendor/menu`,
         {
           method: "POST",

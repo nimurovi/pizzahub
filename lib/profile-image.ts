@@ -1,3 +1,5 @@
+import { apiFetch } from "@/lib/api-fetch";
+
 export function validateProfileImage(file: File): string | null {
   if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
     return "Please select a JPG, PNG, or WebP image.";
@@ -33,7 +35,7 @@ export async function uploadProfileImage(file: File): Promise<string> {
   let response: Response;
 
   try {
-    response = await fetch(`${apiUrl}/api/profile/image`, {
+    response = await apiFetch(`${apiUrl}/api/profile/image`, {
       method: "POST",
       credentials: "include",
       body,

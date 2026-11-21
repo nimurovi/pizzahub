@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
+import { apiFetch } from "@/lib/api-fetch";
 
 type OrderStatus = "pending" | "accepted" | "rejected" | "cancelled";
 
@@ -190,7 +191,7 @@ function CustomerOrders() {
 
     async function loadOrders() {
       try {
-        const response = await fetch(
+        const response = await apiFetch(
           apiUrl(`/api/vendor/orders?page=${page}`),
           {
             credentials: "include",
@@ -297,7 +298,7 @@ function CustomerOrders() {
     const timer = window.setTimeout(() => controller.abort(), 20_000);
 
     try {
-      const response = await fetch(
+      const response = await apiFetch(
         apiUrl(
           `/api/vendor/orders/${encodeURIComponent(order._id)}/status`
         ),

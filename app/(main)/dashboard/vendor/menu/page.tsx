@@ -10,6 +10,7 @@ import {
 } from "react";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
+import { apiFetch } from "@/lib/api-fetch";
 
 type MenuStatus = "pending" | "approved" | "rejected";
 
@@ -429,7 +430,7 @@ function VendorMenuList() {
 
     async function load() {
       try {
-        const response = await fetch(
+        const response = await apiFetch(
           apiUrl(`/api/vendor/menu?page=${page}`),
           {
             credentials: "include",
@@ -533,7 +534,7 @@ function VendorMenuList() {
         `/api/vendor/menu/${encodeURIComponent(item._id)}` +
         (action === "availability" ? "/availability" : "");
 
-      const response = await fetch(apiUrl(path), {
+      const response = await apiFetch(apiUrl(path), {
         method: action === "delete" ? "DELETE" : "PATCH",
         credentials: "include",
         signal: controller.signal,

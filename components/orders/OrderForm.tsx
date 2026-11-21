@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useRef, useState, type FormEvent } from "react";
 import { toast } from "sonner";
 import { authClient } from "../../lib/auth-client";
+import { apiFetch } from "@/lib/api-fetch";
 
 type Props = {
     itemId: string;
@@ -147,7 +148,7 @@ export default function OrderForm({ itemId, vendorId, price }: Props) {
             let response: Response;
 
             try {
-                response = await fetch(`${apiUrl}/api/orders`, {
+                response = await apiFetch(`${apiUrl}/api/orders`, {
                     method: "POST",
                     credentials: "include",
                     headers: {

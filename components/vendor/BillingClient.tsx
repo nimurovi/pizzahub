@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState, type ReactNode } from "react";
 import { authClient } from "@/lib/auth-client";
+import { apiFetch } from "@/lib/api-fetch";
+
 
 export type Subscription = {
   plan: "free" | "premium";
@@ -25,19 +27,19 @@ export function dateTime(value: string | null) {
   if (!value || !Number.isFinite(new Date(value).getTime())) return "Not available";
   return new Intl.DateTimeFormat("en-BD", { dateStyle: "medium", timeStyle: "short", timeZone: "Asia/Dhaka" }).format(new Date(value));
 }
-export async function billingRequest<T>(path: string, options: RequestInit = {}): Promise<T> {
-  const base = process.env.NEXT_PUBLIC_API_URL;
-  if (!base) throw new Error("The API URL is not configured.");
-  const response = await fetch(
-  `${base.replace(/\/$/, "")}${path}`,
-  {
-    ...options,
-    credentials: "include",
-    cache: "no-store",
+export async function billingRequest<T>(
+  path: string,
+  options: RequestInit = {}
+): Promise<T> {
+  const response = await apiFetch(path, options);
+  const result = await response.json().catch(() => null);
+
+  if (!response.ok || result?.success !== true) {
+    throw new Error(
+      result?.message || "The request failed. Please try again."
+    );
   }
-);
-  const result = await response.json();
-  if (!response.ok || result.success !== true) throw new Error(result.message || "The request failed. Please try again.");
+
   return result.data as T;
 }
 export function openStripe(url: string) {

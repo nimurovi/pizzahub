@@ -11,6 +11,7 @@ import LoadingSpinner from "../../../../components/shared/LoadingSpinner";
 import { MenuItem } from "@/types";
 import RequireAuth from "@/components/auth/RequirAuth";
 import OrderForm from "@/components/orders/OrderForm";
+import { apiFetch } from "@/lib/api-fetch";
  
 
 type DetailsState =
@@ -72,7 +73,7 @@ function ItemDetails({ id }: { id: string }) {
           throw new Error("The API URL is not configured.");
         }
 
-        const response = await fetch(
+        const response = await apiFetch(
           `${apiUrl}/api/menu/${encodeURIComponent(id)}`,
           {
             credentials: "include",

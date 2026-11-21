@@ -10,6 +10,7 @@ import {
 } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import LoadingSpinner from "../../../../components/shared/LoadingSpinner";
+import { apiFetch } from "@/lib/api-fetch";
 
 type Role = "customer" | "vendor" | "admin";
 
@@ -49,7 +50,7 @@ async function requestOnboarding(
     throw new Error("NEXT_PUBLIC_API_URL is missing.");
   }
 
-  const response = await fetch(`${apiUrl}${path}`, {
+  const response = await apiFetch(`${apiUrl}${path}`, {
     ...options,
     credentials: "include",
     cache: "no-store",

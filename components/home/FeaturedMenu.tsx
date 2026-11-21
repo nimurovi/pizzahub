@@ -6,6 +6,7 @@ import MenuCard from "../menu/MenuCard";
 import { MenuItem } from "@/types";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import { toast } from "sonner";
+import { apiFetch } from "@/lib/api-fetch";
 
 type MenuState =
     | { status: "loading" }
@@ -69,7 +70,7 @@ export default function FeaturedMenu() {
                     throw new Error("API URL is not configured.");
                 }
 
-                const response = await fetch(
+                const response = await apiFetch(
                     `${apiUrl.replace(/\/+$/, "")}/api/menu/featured`,
                     {
                         signal: controller.signal,

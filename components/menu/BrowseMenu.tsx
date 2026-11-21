@@ -8,6 +8,7 @@ import { categories } from "../../constants/categories";
 import MenuCard from "./MenuCard";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import { MenuItem } from "@/types";
+import { apiFetch } from "@/lib/api-fetch";
 
 type MenuResponse = {
     success: boolean;
@@ -63,7 +64,7 @@ function MenuContent({ query }: { query: string }) {
                     throw new Error("Menu service is not configured.");
                 }
 
-                const response = await fetch(
+                const response = await apiFetch(
                     `${apiUrl.replace(/\/+$/, "")}/api/menu?${query}`,
                     {
                         signal: controller.signal,

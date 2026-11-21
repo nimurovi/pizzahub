@@ -7,6 +7,7 @@ import { authClient } from "../../../lib/auth-client";
  
 import LoadingSpinner from "../../../components/shared/LoadingSpinner";
 import RequireAuth from "@/components/auth/RequirAuth";
+import { apiFetch } from "@/lib/api-fetch";
 
 function ProfileAvatar({
   image,
@@ -97,7 +98,7 @@ function ProfileSettings() {
     const toastId = toast.loading("Saving your profile...");
 
     try {
-      const response = await fetch(`${apiUrl}/api/profile`, {
+      const response = await apiFetch(`${apiUrl}/api/profile`, {
         method: "PATCH",
         credentials: "include",
         headers: {
