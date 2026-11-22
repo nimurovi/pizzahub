@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
- 
+
 import Footer from "@/components/shared/Footer";
 import AuthNavbar from "@/components/shared/AuthNavbar";
 import { Toaster } from "sonner";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,16 +37,20 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         />
       </head>
       <body className="min-h-full flex flex-col">
-        <AuthNavbar />
+        <Suspense fallback={null}>
+          <AuthNavbar />
+        </Suspense>
+
+
         {children}
         <Toaster
-  position="top-right"
-  richColors
-  closeButton
-  duration={4000}
-/>
+          position="top-right"
+          richColors
+          closeButton
+          duration={4000}
+        />
         <Footer />
-        </body>
+      </body>
     </html>
   );
 }

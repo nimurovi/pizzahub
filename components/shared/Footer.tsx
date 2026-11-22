@@ -172,8 +172,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="flex flex-col gap-3 border-t border-stone-800 py-6 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
           <p className="text-xs leading-6 text-stone-400">
-            © {new Date().getFullYear()} PizzaHub. All rights reserved.
-          </p>
+            © 2026 PizzaHub. All rights reserved.          </p>
 
           <p className="text-xs leading-6 text-stone-400">
             Local flavors. More choices. Your next favorite.
