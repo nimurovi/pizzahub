@@ -1,5 +1,6 @@
 "use client";
 
+import { RatingSummary } from "@/components/reviews/Reviews";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -73,6 +74,8 @@ export default function MenuCard({ item }: MenuCardProps) {
           </span>
         </div>
 
+        <RatingSummary average={item.averageRating} count={item.reviewCount} />
+
         <p className="mt-3 line-clamp-2 text-sm leading-6 text-stone-600">
           {item.description}
         </p>
@@ -82,6 +85,7 @@ export default function MenuCard({ item }: MenuCardProps) {
             {item.vendorName || "Restaurant information pending"}
           </p>
 
+          <RatingSummary average={item.restaurantAverageRating} count={item.restaurantReviewCount} />
           <p className="flex items-start gap-2 text-sm text-stone-500">
             <svg
               width="16"

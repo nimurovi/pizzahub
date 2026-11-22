@@ -1,4 +1,8 @@
 export type MenuItem = {
+  averageRating?: number;
+  reviewCount?: number;
+  restaurantAverageRating?: number;
+  restaurantReviewCount?: number;
   _id: string;
   itemName: string;
   category: string;

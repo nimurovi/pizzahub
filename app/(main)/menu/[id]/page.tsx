@@ -1,5 +1,6 @@
 "use client";
 
+import { TargetReviews } from "@/components/reviews/Reviews";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
@@ -287,6 +288,8 @@ function ItemDetails({ id }: { id: string }) {
             />
           </section>
         </div>
+        <TargetReviews type="item" targetId={item._id} name={item.itemName} />
+        <TargetReviews type="restaurant" targetId={item.vendorId} name={item.vendorName || "Restaurant"} />
       </div>
     </main>
   );

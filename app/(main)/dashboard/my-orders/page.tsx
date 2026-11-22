@@ -396,6 +396,8 @@ function OrdersDashboard() {
           </Link>
         </div>
 
+        <Link href="/dashboard/my-reviews" className="mt-5 inline-block rounded-xl border border-stone-300 bg-white px-5 py-3 font-semibold text-stone-800">My Reviews — rate menu items and restaurants</Link>
+
         {state.status === "loading" && <LoadingMessage />}
 
         {state.status === "error" && (
