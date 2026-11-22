@@ -1,65 +1,137 @@
-PizzaHub — Frontend
-Project description
-PizzaHub is a food-ordering platform frontend. It provides public menu browsing, customer authentication and ordering pages, vendor workspace pages, and an administrator dashboard.
-Important features
-- Public home page and menu browsing with category/location filters
-- Menu item detail pages
-- Authentication-aware navigation and role-specific dashboard links
-- Customer order pages
-- Vendor dashboard, menu management, customer orders, and subscription pages
-- Admin dashboard at /dashboard/admin
-  - Overview statistics: users, vendors, customers, menu items, pending items, and transactions
-  - User search, role filtering, and block/unblock controls
-  - Menu moderation: approve, reject, activate, deactivate, and delete
-  - Read-only transaction listing
-- Shared dark/light mode toggle with saved browser preference
-Technology stack
-- Next.js 16.4.6
-- React 19.3.0
-- React DOM 19.3.0
-- TypeScript ^5
-- Tailwind CSS 4.3.3
-- Better Auth ^1.7.26 client integration
-- Motion ^14.14.0
-- Sonner ^2.0.8 for notifications
-- ESLint ^9 and eslint-config-next 16.4.6
-Links
-- Live website: https://YOUR-LIVE-FRONTEND-URL (replace with the deployed website URL)
-- Client repository: https://YOUR-FRONTEND-REPOSITORY-URL (replace with the actual Git repository URL)
-- Server repository: https://YOUR-BACKEND-REPOSITORY-URL (replace with the actual Git repository URL)
-The actual production URL and repository URLs were not included in the supplied project files. Replace these placeholders before submission.
-Installation
-Requirements: Node.js and npm.
-1. Open a terminal in the frontend directory (the directory containing this README and package.json).
-2. Install dependencies:
-npm ci
-If npm ci reports that package.json and package-lock.json are out of sync, use npm install and review the resulting lockfile change.
-Environment variables
-Create .env.local in the frontend project root. Copy .env.example and set:
+# PizzaHub — Frontend
+
+## Project Description
+
+**PizzaHub** is a full-stack online pizza and food ordering platform built with Next.js, React, and TypeScript. The platform connects customers with food vendors and provides dedicated dashboards for customers, vendors, and administrators.
+
+This repository contains the frontend application, including the responsive user interface, authentication flows, menu browsing, order management, and role-based dashboards.
+
+## Live Website and Repositories
+
+- **Live Website:** https://pizzahub-dusky-rho.vercel.app
+- **Client Repository:** https://github.com/nimurovi/pizzahub.git
+- **Server Repository:** https://github.com/nimurovi/pizzahub-server.git
+
+## Important Features
+
+- Responsive website with a modern user interface.
+- User registration and login using email/password and Google authentication.
+- Role-based dashboards for Admin, Vendor, and Customer.
+- Browse food items with category, location, sorting, and pagination filters.
+- View individual menu item details, ratings, and reviews.
+- Customer order placement and order history.
+- Vendor dashboard for managing food items, availability, and incoming orders.
+- Admin dashboard for managing users, moderating menu items, and viewing transactions.
+- Premium subscription interface for vendors.
+- Dark and light mode with saved theme preferences.
+- Interactive animations and toast notifications.
+- Protected navigation and authentication-aware pages.
+
+## Technology Stack
+
+| Technology / Package | Version / Purpose |
+|---|---|
+| Next.js | 16.4.6 — React framework |
+| React | 19.3.0 — User interface |
+| React DOM | 19.3.0 |
+| TypeScript | ^5 |
+| Tailwind CSS | 4.3.3 — Styling |
+| @tailwindcss/turbopack | 4.3.3 |
+| Better Auth | ^1.7.26 — Authentication client |
+| Motion | ^14.14.0 — Animations |
+| Sonner | ^2.0.8 — Notifications |
+| ESLint | ^9 — Linting |
+| eslint-config-next | 16.4.6 |
+| Vercel | Frontend deployment |
+
+## Installation Steps
+
+**Prerequisites:** Node.js, npm, and access to the PizzaHub backend.
+
+1. Clone the frontend repository:
+
+```bash
+git clone https://github.com/nimurovi/pizzahub.git
+```
+
+2. Navigate into the project directory:
+
+```bash
+cd pizzahub
+```
+
+3. Install dependencies:
+
+```bash
+npm install
+```
+
+## Environment Variables
+
+Create a `.env.local` file in the frontend project root:
+
+```dotenv
 NEXT_PUBLIC_API_URL=http://localhost:5000
-Variable	Description
-NEXT_PUBLIC_API_URL	Base URL of the PizzaHub backend API
+```
 
+For production deployment:
 
-NEXT_PUBLIC_ variables are exposed to browser code. Do not store secrets, passwords, database credentials, or private API keys in this file.
-Run locally
-Start the development server:
+```dotenv
+NEXT_PUBLIC_API_URL=https://pizzahub-server-tawny.vercel.app
+```
+
+**Environment Variable Description**
+
+| Variable | Description |
+|---|---|
+| NEXT_PUBLIC_API_URL | Base URL of the PizzaHub backend API |
+
+Do not place private API keys, passwords, or database credentials in variables prefixed with `NEXT_PUBLIC_`.
+
+## How to Run Locally
+
+Start the backend server first, then run:
+
+```bash
 npm run dev
-Open http://localhost:3000.
+```
 
-The backend must also be running. See the backend README for its setup.
-Available npm scripts
-Command	Description
-npm run dev	Start the Next.js development server
-npm run build	Build the frontend for production
-npm run start	Start the production server after building
-npm run lint	Run ESLint
+Open:
 
+http://localhost:3000
 
-Dark/light mode
-Use the theme toggle in the shared navigation. The preference is stored in browser localStorage using the key pizzahub-theme. If no saved preference exists, the browser's system color preference is used.
-Notes
-- Keep .env.local out of Git and shared ZIP files.
-- Set NEXT_PUBLIC_API_URL to the deployed backend URL in production.
-- Configure the backend CLIENT_URL to match the frontend's exact origin.
-- Use HTTPS for production deployments.
+### Production Build
+
+```bash
+npm run build
+npm run start
+```
+
+### Linting
+
+```bash
+npm run lint
+```
+
+## Project Structure
+
+```text
+pizzahub/
+├── app/             # Routes and layouts
+├── components/      # Reusable UI components
+├── constants/       # Shared constants
+├── lib/             # API and authentication utilities
+├── public/          # Static assets
+├── next.config.ts
+├── package.json
+├── tsconfig.json
+└── README.md
+```
+
+## Deployment
+
+The frontend is deployed on Vercel.
+
+Ensure that `NEXT_PUBLIC_API_URL` points to the backend's stable production domain and that the backend allows requests from the frontend's production origin.
+
+**Live Website:** https://pizzahub-dusky-rho.vercel.app
